@@ -9,19 +9,20 @@ metadata:
   name: web-server
   namespace: web
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: web
-    template:
-      metadata:
-        labels:
-          app: web
-      spec:
-        containers:
-        - name: httpd
-          image: httpd:2.4.53-alpine
+      app: web-server          # 👈 PHẢI GIỐNG labels bên dưới
+  template:
+    metadata:
+      labels:
+        app: web-server        # 👈 PHẢI GIỐNG selector
+    spec:
+      containers:              # 👈 BẮT BUỘC PHẢI CÓ
+        - name: web-server
+          image: nginx:alpine
           ports:
-          - containerPort: 80
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
